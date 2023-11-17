@@ -1,6 +1,6 @@
 {
   "name": "@wcd/gergely001.wc-clock",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "serve": "npx wcd-cli@latest serve mmEHBgGBeoB4aKndh4Su --open"
   },
