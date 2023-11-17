@@ -3,5 +3,8 @@
   "version": "0.0.3",
   "scripts": {
     "serve": "npx wcd-cli@latest serve mmEHBgGBeoB4aKndh4Su --open"
-  }
+  },
+  "files": [
+    "README.md"
+  ]
 }
