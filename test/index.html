@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <script src="../index.js" type="module"></script>
+        <style>
+            .clock-container {
+                width: 20em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h3>Default</h3>
+        <div class="clock-container" id="test-default">
+            <wc-clock></wc-clock>
+        </div>
+        
+        <h3>Custom</h3>
+        <div class="clock-container" id="test-custom">
+            <style>
+                #test-custom wc-clock {
+                    --clock-size: 15em;
+                    --dial-fill: lightblue;
+                    --hour-hand-fill: navy;
+                    --minute-hand-fill: darkblue;
+                    --second-hand-fill: blue;
+                    --text-color: indigo;
+                    --frame-fill: dimgray;
+                    --marker-fill: gray;
+                }
+            </style>
+            <wc-clock digital offset="60"><i>Custom Label</i></wc-clock>
+        </div>
+        
+        <h3>JS</h3>
+        <div class="clock-container" id="test-js"></div>
+        <script>
+            const clock = document.createElement('wc-clock');
+            clock.style.setProperty( '--clock-size', '15em' );
+            clock.style.setProperty( '--dial-fill', 'silver' );
+            clock.style.setProperty( '--second-hand-fill', 'darkred' );
+            clock.setAttribute( 'digital', '' );
+            clock.setAttribute( 'offset', '0' );
+            clock.innerHTML = `<i>JS Label</i>`
+            document.getElementById( 'test-js' ).appendChild( clock );
+        </script>
+    </body>
+
+</html>

@@ -1,143 +1,172 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="UTF-8">
-	<script src="./src/index.js" type="module"></script>
-	<style>
-		.container {
-			display: grid;
-			grid-template-areas:
-				"header header"
-				"sidebar content";
-		}
-
-		.header {
-			grid-area: header;
-			text-align: center;
-		}
-
-		.sidebar {
-			grid-area: sidebar;
-			max-width: 50%;
-		}
-
-		.sidebar h3 {
-			text-align: center;
-		}
-
-		.content {
-			grid-area: content;
-		}
-
-		form {
-			display: grid;
-			grid-template-columns: max-content 1fr;
-		}
-
-		form label {
-			margin-left: 1em;
-			margin-right: 1em;
-		}
-
-		form input {
-			/*border: 1px solid blue;*/
-			max-width: 5em;
-		}
-
-		form .section {
-			grid-column: span 2;
-			font-weight: bold;
-		}
-	</style>
-</head>
-
-
-
-<body>
-
-	<div class="container">
-		<div class="header">
-			<h2>&lt;ws-clock&gt; Demo</h2>
-		</div>
-		<div class="sidebar">
-			<h3>Settings</h3>
-			<form id="clock-settings">
-				<div class="section">Attributes</div>
-				<div>
-					<label for="offset">Offset (in minutes)</label>
-				</div>
-				<div><input id="offset" type="number" step="15" value="0"/></div>
-				<div>
-					<label for="digital">Digital</label>
-				</div>
-				<div><input id="digital" type="checkbox"/></div>
-				<div class="section">Style</div>
-				<div>
-					<label for="--clock-size">Size</label>
-				</div>
-				<div><input id="--clock-size" type="text" value="20em"/></div>
-				<div><label for="--dial-fill">Dial Color</label></div>
-				<div><input id="--dial-fill" type="color"/></div>
-				<div><label for="--frame-fill">Frame Color</label></div>
-				<div><input id="--frame-fill" type="color"/></div>
-				<div><label for="--marker-fill">Marker Color</label></div>
-				<div><input id="--marker-fill" type="color"/></div>
-				<div><label for="--hour-hand-fill">Hour Hand Color</label></div>
-				<div><input id="--hour-hand-fill" type="color"/></div>
-				<div><label for="--minute-hand-fill">Minute Hand Color</label></div>
-				<div><input id="--minute-hand-fill" type="color"/></div>
-				<div><label for="--second-hand-fill">Second Hand Color</label></div>
-				<div><input id="--second-hand-fill" type="color"/></div>
-				<div><label for="--text-color">Text Color</label></div>
-				<div><input id="--text-color" type="color"/></div>
-			</form>
-		</div>
-		<div class="content">
-			<wc-clock id="wc-clock" style="--clock-size:20em">
-				<h3>Budapest (CET)</h3>
-			</wc-clock>
-		</div>
-	</div>
-
-	<script>
-		function settingsChanged( event ){
-			//console.log( typeof event.target.value );
-			const clock = document.getElementById( 'wc-clock' );
-			switch ( event.target.id ){
-				case 'offset':
-					if ( event.target.value == '' ) event.target.value = '0';
-					if ( parseInt( event.target.value ) % 15 != 0 ) return false;
-					clock.setAttribute( event.target.id, event.target.value );
-					break;
-				case 'digital':
-					if ( event.target.checked ){
-						clock.setAttribute( 'digital', '' );
-					} else {
-						clock.removeAttribute( 'digital' );
-					}
-					break;
-				case '--clock-size':
-				case '--dial-fill':
-				case '--frame-fill':
-				case '--marker-fill':
-				case '--hour-hand-fill':
-				case '--minute-hand-fill':
-				case '--second-hand-fill':
-				case '--text-color':
-					clock.style.setProperty( event.target.id, event.target.value );
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8">
+		<script src="index.js" type="module"></script>
+		<style>
+			@media (min-width:480px){
+				.container {
+					max-width: 1000px;
+					margin: auto;
+					display: grid;
+					grid-template-areas:
+						"header header"
+						"sidebar content";
+					grid-template-columns: 1fr 1fr;
+				}
 			}
-		}
 
-		function settingsSubmit( event ){
-			event.preventDefault();
-		}
+			@media (max-width:480px){
+				.container {
+					margin: auto;
+					display: grid;
+					grid-template-areas:
+						"header"
+						"sidebar"
+						"content";
+				}
+			}
 
-		console.log( 'settingsForm' );
-		const settingsForm = document.getElementById( 'clock-settings' );
-		settingsForm.addEventListener( 'change', settingsChanged );
-		settingsForm.addEventListener( 'submit', settingsSubmit );
-	</script>
-</body>
+			.header {
+				grid-area: header;
+				text-align: center;
+			}
+
+			.sidebar {
+				grid-area: sidebar;
+			}
+
+			.sidebar h3 {
+				text-align: center;
+			}
+
+			.content {
+				grid-area: content;
+			}
+
+			form {
+				display: grid;
+				grid-template-columns: max-content 1fr;
+			}
+
+			form label {
+				margin-left: 1em;
+				margin-right: 1em;
+			}
+
+			form input {
+				margin-left: 0px;
+			}
+
+			form input:not([type="checkbox"]), form textarea {
+				box-sizing: border-box;
+				width: 10em;
+			}
+
+			form .span-2 {
+				grid-column: span 2;
+			}
+
+			form .section {
+				font-weight: bold;
+			}
+
+			textarea#clock-html {
+				/* background-color: #EEEEFF; */
+				/* margin-top: 1em; */
+				resize: none;
+				width: 100%;
+			}
+			a {
+				text-decoration: none;
+				font-weight: bold;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+
+
+
+	<body>
+
+		<div class="container">
+			<div class="header">
+				<h1>&lt;wc-clock&gt; Custom Element Demo</h1>
+				<h3><a href="https://github.com/gergely001/wc-clock/">Github repo</a></h3>
+			</div>
+			<div class="sidebar">
+				<h3>Settings</h3>
+				<form id="clock-settings">
+					<div class="section span-2">Content</div>
+					<div><label for="label">Label</label></div>
+					<!-- <div><input id="label" type="text"/></div> -->
+					<div><textarea id="label"></textarea></div>
+					<div class="section span-2">Attributes</div>
+					<div><label for="offset">UTC Offset (in minutes)</label></div>
+					<div><input id="offset" type="number" step="15" value="0"/></div>
+					<div><label for="digital">Digital</label></div>
+					<div><input id="digital" type="checkbox"/></div>
+					<div class="section span-2">Style</div>
+					<div><label for="clockSize">Size</label></div>
+					<div><input id="clockSize" name="--clock-size" type="text"/></div>
+					<div><label for="dialFill">Dial Color</label></div>
+					<div><input id="dialFill" name="--dial-fill" type="color"/ value="#ffffff"></div>
+					<div><label for="frameFill">Frame Color</label></div>
+					<div><input id="frameFill" name="--frame-fill" type="color" value="#000000"/></div>
+					<div><label for="markerFill">Marker Color</label></div>
+					<div><input id="markerFill" name="--marker-fill" type="color" value="#000000"/></div>
+					<div><label for="hourHandFill">Hour Hand Color</label></div>
+					<div><input id="hourHandFill" name="--hour-hand-fill" type="color" value="#000000"/></div>
+					<div><label for="minuteHandFill">Minute Hand Color</label></div>
+					<div><input id="minuteHandFill" name="--minute-hand-fill" type="color" value="#000000"/></div>
+					<div><label for="secondHandFill">Second Hand Color</label></div>
+					<div><input id="secondHandFill" name="--second-hand-fill" type="color" value="#000000"/></div>
+					<div><label for="textColor">Text Color</label></div>
+					<div><input id="textColor" name="--text-color" type="color" value="#000000"/></div>
+					<div class="section span-2">HTML</div>
+					<div class="span-2"><textarea id="clock-html" rows="4" readonly></textarea></div>
+				</form>
+			</div>
+			<div class="content" id="clock-container">
+			</div>
+		</div>
+
+		<script>
+			function applySettings(){
+				const settingsForm = document.getElementById('clock-settings');
+				const clockHTML = document.getElementById('clock-html');
+				const { label, offset, digital, clockSize, dialFill, frameFill, markerFill, hourHandFill, minuteHandFill, secondHandFill, textColor } = settingsForm;
+				const labelText = label.value ? `${label.value}` : ``;
+				const offsetText = !isNaN( parseInt( offset.value ) ) ? ` offset="${offset.value}"` : '';
+				const digitalText = digital.checked ? ` digital` : '';
+				const styleText = [];
+				if ( clockSize.value ) styleText.push( `--clock-size:${clockSize.value}` );
+				if ( dialFill.value && dialFill.value != dialFill.defaultValue ) styleText.push( `--dial-fill:${dialFill.value}` );
+				if ( frameFill.value && frameFill.value != frameFill.defaultValue ) styleText.push( `--frame-fill:${frameFill.value}` );
+				if ( markerFill.value && markerFill.value != markerFill.defaultValue ) styleText.push( `--marker-fill:${markerFill.value}` );
+				if ( hourHandFill.value && hourHandFill.value != hourHandFill.defaultValue ) styleText.push( `--hour-hand-fill:${hourHandFill.value}` );
+				if ( minuteHandFill.value && minuteHandFill.value != minuteHandFill.defaultValue ) styleText.push( `--minute-hand-fill:${minuteHandFill.value}` );
+				if ( secondHandFill.value && secondHandFill.value != secondHandFill.defaultValue ) styleText.push( `--second-hand-fill:${secondHandFill.value}` );
+				if ( textColor.value && textColor.value != textColor.defaultValue ) styleText.push( `--text-color:${textColor.value}` );
+
+				// console.log(settingsForm['--clock-size'].value);
+				clockHTML.textContent = `<wc-clock${offsetText}${digitalText} style="${styleText.join(';')}">${labelText}</wc-clock>`;
+				document.getElementById('clock-container').innerHTML = clockHTML.textContent;
+			}
+
+			function settingsSubmit( event ){
+				event.preventDefault();
+			}
+
+			const settingsForm = document.getElementById( 'clock-settings' );
+			settingsForm.offset.value = new Date().getTimezoneOffset() * -1;
+			settingsForm.addEventListener( 'change', applySettings );
+			settingsForm.addEventListener( 'submit', settingsSubmit );
+			applySettings();
+		</script>
+	</body>
 
 </html>

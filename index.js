@@ -42,6 +42,14 @@ template.innerHTML = /*html*/`
       margin-top: 0.5em;
       margin-bottom: 0.5em;
     }
+    .dial-number {
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 5px;
+      stroke: var( --dial-fill, white );
+      fill: var( --text-color );
+      stroke-width: 0.25px;
+    }
   </style>
   <div id="clock-container">
     <h4 class="label"><slot></slot></h4>
@@ -69,7 +77,8 @@ class Clock extends HTMLElement {
   }
 
   getAttributes(){
-    this.offset = parseInt( this.getAttribute( 'offset' ) ) || 0;
+    this.offset = parseInt( this.getAttribute( 'offset' ) );
+    if ( isNaN( this.offset ) ) this.offset =  new Date().getTimezoneOffset() * -1;
     this.digital = this.hasAttribute( 'digital' );
     //console.log( 'digital: ' + this.digital );
   }
@@ -115,7 +124,10 @@ class Clock extends HTMLElement {
 
   sync(){
       const currentDate = new Date();
-      currentDate.setMinutes( currentDate.getMinutes() + this.offset );
+      // currentDate.setMinutes( currentDate.getMinutes() + this.offset );
+      currentDate.setMinutes( currentDate.getMinutes() + currentDate.getTimezoneOffset() + this.offset );
+
+      // console.log( 'currentDate:', currentDate );
 
       const seconds = currentDate.getSeconds();
       const minutes = currentDate.getMinutes();
@@ -137,13 +149,11 @@ class Clock extends HTMLElement {
   }
 
   showTimeZone(){
-    const currentDate = new Date();
-    const sumOffset = currentDate.getTimezoneOffset() + this.offset;
-    const hours = Math.floor( Math.abs( sumOffset ) / 60 );
-    const minutes = Math.abs( sumOffset ) % 60;
+    const hours = Math.floor( Math.abs( this.offset ) / 60 );
+    const minutes = Math.abs( this.offset ) % 60;
 
     this.timeZone.textContent = 
-      'GMT' + ( sumOffset < 0 ? '-' : '+' )
+      'GMT' + ( this.offset < 0 ? '-' : '+' )
       + String( hours ).padStart( 2, '0' ) + ':' 
       + String( minutes ).padStart( 2, '0' );
   }

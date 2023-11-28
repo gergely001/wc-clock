@@ -1,10 +1,9 @@
 {
-  "name": "@wcd/gergely001.wc-clock",
-  "version": "0.0.6",
-  "scripts": {
-    "serve": "npx wcd-cli@latest serve mmEHBgGBeoB4aKndh4Su --open"
-  },
+  "name": "wc-clock",
+  "type": "module",
+  "version": "0.0.7",
   "files": [
-    "README.md"
+    "README.md",
+    "index.js"
   ]
 }
