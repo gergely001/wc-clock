@@ -21,7 +21,6 @@ template.innerHTML = /*html*/`
     }
     #clock-container {
       width: var( --clock-size );
-      height: var( --clock-size );
       margin: auto;
     }
     #time-text, #time-zone {

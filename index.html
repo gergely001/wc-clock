@@ -1,172 +1,217 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta charset="UTF-8">
-		<script src="index.js" type="module"></script>
-		<style>
-			@media (min-width:480px){
-				.container {
-					max-width: 1000px;
-					margin: auto;
-					display: grid;
-					grid-template-areas:
-						"header header"
-						"sidebar content";
-					grid-template-columns: 1fr 1fr;
-				}
-			}
 
-			@media (max-width:480px){
-				.container {
-					margin: auto;
-					display: grid;
-					grid-template-areas:
-						"header"
-						"sidebar"
-						"content";
-				}
-			}
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<script src="index.js" type="module"></script>
+	<style>
+		body {
+			max-width: 50rem;
+			min-width: 20em;
+			margin-left: auto;
+			margin-right: auto;
+			font-size: 1em;
+			height: max-content;
+		}
 
-			.header {
-				grid-area: header;
-				text-align: center;
-			}
+		.container {
+			column-gap: 2em;
+			margin: auto;
+			display: grid;
+			margin-bottom: 1em;
+		}
 
-			.sidebar {
-				grid-area: sidebar;
-			}
-
-			.sidebar h3 {
-				text-align: center;
-			}
-
-			.content {
-				grid-area: content;
-			}
-
-			form {
-				display: grid;
+		@media (min-width:480px) {
+			.container {
+				max-width: 1000px;
+				grid-template-areas:
+					"header header"
+					"sidebar content";
 				grid-template-columns: max-content 1fr;
 			}
+		}
 
-			form label {
-				margin-left: 1em;
-				margin-right: 1em;
+		@media (max-width:480px) {
+			.container {
+				grid-template-areas:
+					"header"
+					"sidebar"
+					"content";
 			}
+		}
 
-			form input {
-				margin-left: 0px;
-			}
+		.header {
+			grid-area: header;
+			text-align: center;
+		}
 
-			form input:not([type="checkbox"]), form textarea {
-				box-sizing: border-box;
-				width: 10em;
-			}
+		.sidebar {
+			grid-area: sidebar;
+		}
 
-			form .span-2 {
-				grid-column: span 2;
-			}
+		.sidebar h3 {
+			text-align: center;
+		}
 
-			form .section {
-				font-weight: bold;
-			}
+		.content {
+			grid-area: content;
+		}
 
-			textarea#clock-html {
-				/* background-color: #EEEEFF; */
-				/* margin-top: 1em; */
-				resize: none;
-				width: 100%;
-			}
-			a {
-				text-decoration: none;
-				font-weight: bold;
-			}
-			a:hover {
-				text-decoration: underline;
-			}
-		</style>
-	</head>
+		form {
+			width: max-content;
+		}
+
+		.form-input {
+			padding: 0.2em;
+		}
+
+		.form-input label {
+			display: block;
+		}
+
+		form input:not([type="checkbox"]),
+		form textarea {
+			box-sizing: border-box;
+		}
+
+		.form-input input,
+		.form-input textarea {
+			border: solid 0.1em;
+			border-radius: 0.5em;
+			width: 100%;
+			padding: 0.2em;
+		}
+
+		.form-section {
+			font-weight: bold;
+		}
+
+		textarea#clock-html {
+			resize: none;
+			width: 100%;
+		}
+
+		a {
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
 
 
 
-	<body>
+<body>
 
-		<div class="container">
-			<div class="header">
-				<h1>&lt;wc-clock&gt; Custom Element Demo</h1>
-				<h3><a href="https://github.com/gergely001/wc-clock/">Github repo</a></h3>
-			</div>
-			<div class="sidebar">
-				<h3>Settings</h3>
-				<form id="clock-settings">
-					<div class="section span-2">Content</div>
-					<div><label for="label">Label</label></div>
-					<!-- <div><input id="label" type="text"/></div> -->
-					<div><textarea id="label"></textarea></div>
-					<div class="section span-2">Attributes</div>
-					<div><label for="offset">UTC Offset (in minutes)</label></div>
-					<div><input id="offset" type="number" step="15" value="0"/></div>
-					<div><label for="digital">Digital</label></div>
-					<div><input id="digital" type="checkbox"/></div>
-					<div class="section span-2">Style</div>
-					<div><label for="clockSize">Size</label></div>
-					<div><input id="clockSize" name="--clock-size" type="text"/></div>
-					<div><label for="dialFill">Dial Color</label></div>
-					<div><input id="dialFill" name="--dial-fill" type="color"/ value="#ffffff"></div>
-					<div><label for="frameFill">Frame Color</label></div>
-					<div><input id="frameFill" name="--frame-fill" type="color" value="#000000"/></div>
-					<div><label for="markerFill">Marker Color</label></div>
-					<div><input id="markerFill" name="--marker-fill" type="color" value="#000000"/></div>
-					<div><label for="hourHandFill">Hour Hand Color</label></div>
-					<div><input id="hourHandFill" name="--hour-hand-fill" type="color" value="#000000"/></div>
-					<div><label for="minuteHandFill">Minute Hand Color</label></div>
-					<div><input id="minuteHandFill" name="--minute-hand-fill" type="color" value="#000000"/></div>
-					<div><label for="secondHandFill">Second Hand Color</label></div>
-					<div><input id="secondHandFill" name="--second-hand-fill" type="color" value="#000000"/></div>
-					<div><label for="textColor">Text Color</label></div>
-					<div><input id="textColor" name="--text-color" type="color" value="#000000"/></div>
-					<div class="section span-2">HTML</div>
-					<div class="span-2"><textarea id="clock-html" rows="4" readonly></textarea></div>
-				</form>
-			</div>
-			<div class="content" id="clock-container">
-			</div>
+	<div class="container">
+		<div class="header">
+			<h1>&lt;wc-clock&gt; Custom Element Demo</h1>
+			<h3><a href="https://github.com/gergely001/wc-clock/">Github repo</a></h3>
 		</div>
+		<div class="sidebar">
+			<h3>Settings</h3>
+			<form id="clock-settings">
 
-		<script>
-			function applySettings(){
-				const settingsForm = document.getElementById('clock-settings');
-				const clockHTML = document.getElementById('clock-html');
-				const { label, offset, digital, clockSize, dialFill, frameFill, markerFill, hourHandFill, minuteHandFill, secondHandFill, textColor } = settingsForm;
-				const labelText = label.value ? `${label.value}` : ``;
-				const offsetText = !isNaN( parseInt( offset.value ) ) ? ` offset="${offset.value}"` : '';
-				const digitalText = digital.checked ? ` digital` : '';
-				const styleText = [];
-				if ( clockSize.value ) styleText.push( `--clock-size:${clockSize.value}` );
-				if ( dialFill.value && dialFill.value != dialFill.defaultValue ) styleText.push( `--dial-fill:${dialFill.value}` );
-				if ( frameFill.value && frameFill.value != frameFill.defaultValue ) styleText.push( `--frame-fill:${frameFill.value}` );
-				if ( markerFill.value && markerFill.value != markerFill.defaultValue ) styleText.push( `--marker-fill:${markerFill.value}` );
-				if ( hourHandFill.value && hourHandFill.value != hourHandFill.defaultValue ) styleText.push( `--hour-hand-fill:${hourHandFill.value}` );
-				if ( minuteHandFill.value && minuteHandFill.value != minuteHandFill.defaultValue ) styleText.push( `--minute-hand-fill:${minuteHandFill.value}` );
-				if ( secondHandFill.value && secondHandFill.value != secondHandFill.defaultValue ) styleText.push( `--second-hand-fill:${secondHandFill.value}` );
-				if ( textColor.value && textColor.value != textColor.defaultValue ) styleText.push( `--text-color:${textColor.value}` );
+				<div class="form-section">Content</div>
 
-				// console.log(settingsForm['--clock-size'].value);
-				clockHTML.textContent = `<wc-clock${offsetText}${digitalText} style="${styleText.join(';')}">${labelText}</wc-clock>`;
-				document.getElementById('clock-container').innerHTML = clockHTML.textContent;
-			}
+				<div class="form-input">
+					<label for="label">Label</label>
+					<textarea id="label"></textarea>
+				</div>
 
-			function settingsSubmit( event ){
-				event.preventDefault();
-			}
+				<div class="form-section">Attributes</div>
 
-			const settingsForm = document.getElementById( 'clock-settings' );
-			settingsForm.offset.value = new Date().getTimezoneOffset() * -1;
-			settingsForm.addEventListener( 'change', applySettings );
-			settingsForm.addEventListener( 'submit', settingsSubmit );
-			applySettings();
-		</script>
-	</body>
+				<div class="form-input">
+					<label for="offset">UTC Offset (in minutes)</label>
+					<input id="offset" type="number" step="15" value="0" />
+				</div>
+				<div class="form-input">
+					<label for="digital">Digital</label>
+					<input id="digital" type="checkbox" />
+				</div>
+
+				<div class="form-section">Style</div>
+
+				<div class="form-input">
+					<label for="clockSize">Size</label>
+					<input id="clockSize" name="--clock-size" type="text" placeholder="Use CSS units, e.g. 10em" />
+				</div>
+				<div class="form-input">
+					<label for="dialFill">Dial Color</label>
+					<input id="dialFill" name="--dial-fill" type="color" / value="#ffffff">
+				</div>
+				<div class="form-input">
+					<label for="frameFill">Frame Color</label>
+					<input id="frameFill" name="--frame-fill" type="color" value="#000000" />
+				</div>
+				<div class="form-input">
+					<label for="markerFill">Marker Color</label>
+					<input id="markerFill" name="--marker-fill" type="color" value="#000000" />
+				</div>
+				<div class="form-input">
+					<label for="hourHandFill">Hour Hand Color</label>
+					<input id="hourHandFill" name="--hour-hand-fill" type="color" value="#000000" />
+				</div>
+				<div class="form-input">
+					<label for="minuteHandFill">Minute Hand Color</label>
+					<input id="minuteHandFill" name="--minute-hand-fill" type="color" value="#000000" />
+				</div>
+				<div class="form-input">
+					<label for="secondHandFill">Second Hand Color</label>
+					<input id="secondHandFill" name="--second-hand-fill" type="color" value="#000000" />
+				</div>
+				<div class="form-input">
+					<label for="textColor">Text Color</label>
+					<input id="textColor" name="--text-color" type="color" value="#000000" />
+				</div>
+
+			</form>
+		</div>
+		<div class="content" id="clock-container">
+		</div>
+	</div>
+	<div class="form-section">HTML</div>
+	<div class="form-input">
+		<textarea id="clock-html" rows="4" readonly></textarea>
+	</div>
+
+	<script>
+		function applySettings() {
+			const settingsForm = document.getElementById('clock-settings');
+			const clockHTML = document.getElementById('clock-html');
+			const { label, offset, digital, clockSize, dialFill, frameFill, markerFill, hourHandFill, minuteHandFill, secondHandFill, textColor } = settingsForm;
+			const labelText = label.value ? `${label.value}` : ``;
+			const offsetText = !isNaN(parseInt(offset.value)) ? ` offset="${offset.value}"` : '';
+			const digitalText = digital.checked ? ` digital` : '';
+			const styleText = [];
+			if (clockSize.value) styleText.push(`--clock-size:${clockSize.value}`);
+			if (dialFill.value && dialFill.value != dialFill.defaultValue) styleText.push(`--dial-fill:${dialFill.value}`);
+			if (frameFill.value && frameFill.value != frameFill.defaultValue) styleText.push(`--frame-fill:${frameFill.value}`);
+			if (markerFill.value && markerFill.value != markerFill.defaultValue) styleText.push(`--marker-fill:${markerFill.value}`);
+			if (hourHandFill.value && hourHandFill.value != hourHandFill.defaultValue) styleText.push(`--hour-hand-fill:${hourHandFill.value}`);
+			if (minuteHandFill.value && minuteHandFill.value != minuteHandFill.defaultValue) styleText.push(`--minute-hand-fill:${minuteHandFill.value}`);
+			if (secondHandFill.value && secondHandFill.value != secondHandFill.defaultValue) styleText.push(`--second-hand-fill:${secondHandFill.value}`);
+			if (textColor.value && textColor.value != textColor.defaultValue) styleText.push(`--text-color:${textColor.value}`);
+
+			// console.log(settingsForm['--clock-size'].value);
+			clockHTML.textContent = `<wc-clock${offsetText}${digitalText} style="${styleText.join(';')}">${labelText}</wc-clock>`;
+			document.getElementById('clock-container').innerHTML = clockHTML.textContent;
+		}
+
+		function settingsSubmit(event) {
+			event.preventDefault();
+		}
+
+		const settingsForm = document.getElementById('clock-settings');
+		settingsForm.offset.value = new Date().getTimezoneOffset() * -1;
+		settingsForm.addEventListener('change', applySettings);
+		settingsForm.addEventListener('submit', settingsSubmit);
+		applySettings();
+	</script>
+</body>
 
 </html>
