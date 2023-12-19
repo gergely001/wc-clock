@@ -1,9 +1,11 @@
 {
   "name": "wc-clock",
   "type": "module",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "files": [
     "README.md",
     "index.js"
-  ]
+  ],
+  "homepage": "https://github.com/gergely001/wc-clock/",
+  "author": {"name": "gergely001"}
 }
