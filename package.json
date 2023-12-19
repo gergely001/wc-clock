@@ -1,5 +1,5 @@
 {
-  "name": "wc-clock",
+  "name": "@gergely001/wc-clock",
   "type": "module",
   "version": "1.0.0",
   "files": [
@@ -7,7 +7,16 @@
     "index.js"
   ],
   "homepage": "https://github.com/gergely001/wc-clock/",
-  "author": {"name": "gergely001"},
-  "keywords": ["web component", "js", "clock"],
-  "license": "MIT"
+  "author": "gergely001",
+  "keywords": [
+    "web component",
+    "js",
+    "clock"
+  ],
+  "license": "MIT",
+  "description": "A vanilla JS web component to display a simple analog clock.",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  }
 }

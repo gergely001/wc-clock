@@ -4,10 +4,11 @@ A vanilla JS web component to display a simple analog clock.
 ## Installation
 - via NPM and serve your node_modules folder
 
-        <script src="wc-./node_modules/wc-clock/index.js" type="module"></script>
+        <script src="./node_modules/wc-clock/index.js" type="module"></script>
 - via CDN
 
-
+        <script src="https://cdn.jsdelivr.net/npm/@gergely001/wc-clock"></script>
+        
 ## Usage
 
 ### [Demo](https://gergely001.github.io/wc-clock/)
