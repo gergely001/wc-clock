@@ -8,5 +8,6 @@
   ],
   "homepage": "https://github.com/gergely001/wc-clock/",
   "author": {"name": "gergely001"},
-  "keywords": ["web component", "js", "clock"]
+  "keywords": ["web component", "js", "clock"],
+  "license": "MIT"
 }
